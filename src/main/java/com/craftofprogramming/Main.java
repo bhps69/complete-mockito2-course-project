@@ -1,8 +1,5 @@
 package com.craftofprogramming;
 
-import com.craftofprogramming.ReservationManager.CityPairKey;
-import com.craftofprogramming.ReservationManager.ClassSeat;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * @author Nilton Santos 7/15/2019
@@ -35,10 +33,13 @@ public class Main {
                 final LocalDate date = LocalDate.parse(getToken(tokens, idx++));
                 // Date to CityPairKey to ClassType to (ascending price ordered) List of ClassSeat cityPairKeyMapMap!
                 Map<CityPairKey, Map<String, List<ClassSeat>>> cityPairKeyMapMap = data.computeIfAbsent(date, k -> new HashMap<>());
+                //cityPairKeyMapMap.entrySet().stream().forEach(e->{System.out.println(e.getKey()+":"+e.getValue());});
                 CityPairKey cityPairKey = CityPairKey.valueOf(getToken(tokens, idx++), getToken(tokens, idx++));
                 Map<String, List<ClassSeat>> stringListMap = cityPairKeyMapMap.computeIfAbsent(cityPairKey, k -> new HashMap<>());
+                //stringListMap.entrySet().stream().forEach(e->System.out.println(e.getValue()+":"+e.getKey()));
                 String classType = getToken(tokens, idx++);
                 List<ClassSeat> classSeats = stringListMap.computeIfAbsent(classType, k -> new ArrayList<>());
+                //classSeats.stream().forEach(e->System.out.println(e.toString()));
                 String airline = getToken(tokens, idx++);
                 int seats = Integer.valueOf(getToken(tokens, idx++));
                 classSeats.add(ClassSeat.valueOf(airline, seats));

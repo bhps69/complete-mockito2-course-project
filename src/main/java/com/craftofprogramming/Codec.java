@@ -1,7 +1,5 @@
 package com.craftofprogramming;
 
-import com.craftofprogramming.ReservationManager.Quote;
-
 /**
  * @author Nilton Santos 7/14/2019
  */

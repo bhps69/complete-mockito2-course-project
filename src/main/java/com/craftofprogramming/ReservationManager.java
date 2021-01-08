@@ -1,16 +1,13 @@
 package com.craftofprogramming;
 
-import sun.util.resources.ext.CurrencyNames_it_IT;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DateFormat;
-import java.text.Format;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 
 /**
  * 1) Add Javadoc
@@ -144,118 +141,14 @@ public class ReservationManager {
         }
     }
 
-    static class CityPairKey {
-        final String from;
-        final String to;
+    
+    // static class for generating city-key pair
+    
+    //static class to store passenger
+   
 
-        private CityPairKey(String from, String to) {
-            this.from = from;
-            this.to = to;
-        }
-
-        static CityPairKey valueOf(String from, String to) {
-            return new CityPairKey(from, to);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            final CityPairKey that = (CityPairKey) o;
-            return from.equals(that.from) &&
-                    to.equals(that.to);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(from, to);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s->%s", from, to);
-        }
+    //static class for reserving (passenger-citykeypair
+    
+    //static class to get quote
+        // one for each: economy, business, first
     }
-
-    private static class Passenger {
-        String name;
-        int age;
-    }
-
-    private static class Reservation {
-        static long idGenerator =1;
-        long id;
-        Quote quote;
-        List<Passenger> passengers;
-        BigDecimal totalPrice;
-
-        Reservation(Quote quote, List<Passenger> passengers) {
-            this.id = ++idGenerator + quote.id;
-            this.passengers = new ArrayList<>(passengers);
-            this.quote = quote;
-            this.totalPrice = quote.price.multiply(BigDecimal.valueOf(passengers.size()));
-        }
-    }
-
-    static class Quote {
-        static int idGenerator = 1;
-
-        // request fields
-        String fromCity;
-        String toCity;
-        String fromDate;
-        String toDate;
-        String tripType;
-        String classType;
-
-        // response fields
-        long id;
-        String text;
-        BigDecimal price;
-        int inboundSeatCount;
-        String inboundAirlineName;
-        String inboundDepartureTime;
-        int outboundSeatCount;
-        String outboundAirlineName;
-        String outboundDepartureTime;
-
-        Quote(String fromCity, String toCity, String fromDate, String toDate, String tripType,
-              String classType) {
-            this.fromCity = fromCity;
-            this.toCity = toCity;
-            this.fromDate = fromDate;
-            this.toDate = toDate;
-            this.tripType = tripType;
-            this.classType = classType;
-
-            this.text = "Couldn't find any seats for the provided request parameters";
-            this.id = ++idGenerator;
-        }
-    }
-
-    // one for each: economy, business, first
-    static class ClassSeat {
-        String airlineName;
-        int availableCount;
-        String departureTime;
-        BigDecimal price;
-        Random random = new Random();
-
-        ClassSeat(String airline, int seats) {
-            this.airlineName = airline;
-            this.availableCount = seats;
-            this.departureTime = LocalDateTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
-            this.price = BigDecimal.valueOf(random.nextDouble() * 1000).setScale(0, RoundingMode.HALF_EVEN);
-        }
-
-        static ClassSeat valueOf(String airline, int seats) {
-            return new ClassSeat(airline, seats);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("Airline:%s| Seats:%d | Departure-time=%s | Price-per-seat:%s", airlineName,
-                    availableCount, departureTime, price);
-        }
-    }
-}
