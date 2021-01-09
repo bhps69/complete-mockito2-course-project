@@ -22,7 +22,7 @@ public void testMethod() throws NoSuchMethodException, SecurityException {
 	//airLine is empty
 	when(classSeat.getAirlineName()).thenThrow(RuntimeException.class);
 	RuntimeException airlineException=Assertions.assertThrows(RuntimeException.class, ()->{(classSeat.getAirlineName()).isEmpty();});
-	MatcherAssert.assertThat(RuntimeException.class, is(equalTo(airlineException.getClass())));
+	MatcherAssert.assertThat(airlineException.getClass(), is(equalTo(RuntimeException.class)));
 	
 	/*airline is a string
 	when(classSeat.getAirlineName()).thenThrow(RuntimeException.class);
@@ -32,12 +32,12 @@ public void testMethod() throws NoSuchMethodException, SecurityException {
 	
 	when(classSeat.getAvailableCount()).thenThrow(RuntimeException.class);
 	RuntimeException countException= Assertions.assertThrows(RuntimeException.class, ()->{countAvailable(classSeat.getAvailableCount());});
-	MatcherAssert.assertThat(RuntimeException.class, is(equalTo(countException.getClass())));
+	MatcherAssert.assertThat(countException.getClass(), is(equalTo(RuntimeException.class)));
 //	Constructor<?>[] arr;
 //	arr=
 	when(classSeat).thenThrow(RuntimeException.class);
 	RuntimeException deptPriceException = Assertions.assertThrows(RuntimeException.class, ()->{DeptPrice(classSeat.getAirlineName(),classSeat.getAvailableCount());});
-	MatcherAssert.assertThat(RuntimeException.class, is(equalTo(deptPriceException.getClass())));
+	MatcherAssert.assertThat(deptPriceException.getClass(), is(equalTo(RuntimeException.class)));
 	}
 	
 	public boolean countAvailable(int x) {

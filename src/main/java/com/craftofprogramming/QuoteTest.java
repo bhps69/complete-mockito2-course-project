@@ -34,7 +34,7 @@ public class QuoteTest {
 		//exception for class type
 		when(quote.classDataType(anyString())).thenThrow(new RuntimeException());
 		RuntimeException classTypeException= Assertions.assertThrows(RuntimeException.class, ()->{quote.classDataType("");});
-		MatcherAssert.assertThat(runtimeException.getClass(), is(equalTo(RuntimeException.class)));
+		MatcherAssert.assertThat(classTypeException.getClass(), is(equalTo(RuntimeException.class)));
 		/*exception for the constructor
 		when(quote.getClass()).thenThrow(RuntimeException.class);
 		RuntimeException constException = Assertions.assertThrows(RuntimeException.class, ()->{ this.idGeneration(quote.getFromCity(), quote.getToCity(),quote.getFromDate(), quote.getToDate(),quote.getTripType(), quote.getClassType());});
